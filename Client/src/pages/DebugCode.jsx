@@ -1,17 +1,21 @@
 import React from 'react'
 import '../App.css';
-import LeftSection from '../components/LeftSection';
-import RightSection from '../components/RightSection';
+import SideBar from '../components/SideBar';
+import MainChat from '../components/MainChat';
+
 
 const DebugCode = () => {
     const models  = [];
-
+  // grid grid-flow-col gap-3
   return (
-    <section className="max-w-7xl mx-auto flex">
-        <LeftSection />
-        <RightSection />
-
-    </section>
+    <div className='chatapp'>
+      <div className='sidemenu'>
+        <SideBar />
+      </div>
+      <div className='mainchat'>
+        <MainChat />
+      </div>
+    </div>
   )
 }
 
