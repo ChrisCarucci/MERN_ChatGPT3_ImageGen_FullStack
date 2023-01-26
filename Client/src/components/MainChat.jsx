@@ -1,22 +1,23 @@
 import React from 'react'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 const MainChat = () => {
 
+
   const [ input, setInput ] = useState();
   const [ chatLog, setChatLog ] = useState([]);
-
-
-  console.log(chatLog)
-
+  
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setChatLog ([...chatLog, { user: "me", message: `${input}`}])
+    let chatLogNew = [...chatLog, { user: "me", message: `${input}`} ]
     setInput("");
+    setChatLog(chatLogNew)
+
+    const messages = chatLogNew.map((message) => message.message).join("\n")
 
     const response = await fetch("http://localhost:8080/chat", {
       method: "POST",
@@ -24,12 +25,11 @@ const MainChat = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: chatLog.map((message) => message.message).join("")
+        message: messages
         })
       });
       const data = await response.json();
-      console.log(data.message)
-      setChatLog([...chatLog, { user: "gpt", message: `${data.message}`} ])
+      setChatLog([...chatLogNew, { user: "gpt", message: `${data.message}`} ])
   }
 
   return (

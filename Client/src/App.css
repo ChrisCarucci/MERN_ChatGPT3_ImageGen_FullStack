@@ -65,6 +65,15 @@
   border: 1px solid white;
 }
 
+.models {
+  border: 2px solid white;
+  padding: 1px;
+  margin: 1px;
+  color: white;
+  font-weight: bold;
+  background-color: black;
+}
+
 .sidemenubutton {
   border: 2px solid white;
   padding: 15px;

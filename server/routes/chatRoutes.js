@@ -19,7 +19,6 @@ const openai = new OpenAIApi(configuration);
 router.route('/chat').post(async (req, res) => {
     const { message } = req.body;
 
-    console.log(message)
     const response = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `${message}`,
@@ -30,6 +29,13 @@ router.route('/chat').post(async (req, res) => {
     res.json({
         message: response.data.choices[0].text,
     });
+})
+
+router.route('/models').get(async (req, res) => {
+    const response = await openai.listEngines();
+    res.json({
+        models: response.data.data
+    })
 })
 
 
