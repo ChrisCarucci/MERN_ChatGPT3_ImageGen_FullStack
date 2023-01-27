@@ -1,10 +1,15 @@
 import React from 'react'
 
 import { useState, useEffect } from 'react';
+import { useSelector} from 'react-redux'
+
 
 
 const MainChat = () => {
 
+  const modelChoice = useSelector((state) => state.modelChoice.choice)
+  
+  console.log("ModelChoice Const: ", modelChoice);
 
   const [ input, setInput ] = useState();
   const [ chatLog, setChatLog ] = useState([]);
@@ -25,7 +30,8 @@ const MainChat = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: messages
+        message: messages,
+        modelChoice,
         })
       });
       const data = await response.json();

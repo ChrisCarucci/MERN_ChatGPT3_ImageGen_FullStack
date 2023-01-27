@@ -17,10 +17,11 @@ const openai = new OpenAIApi(configuration);
 
 
 router.route('/chat').post(async (req, res) => {
-    const { message } = req.body;
-
+    const { message, modelChoice } = req.body;
+    console.log("Backend Model: ", modelChoice)
+    
     const response = await openai.createCompletion({
-        model: "text-davinci-003",
+        model: `${modelChoice}`,
         prompt: `${message}`,
         max_tokens: 100,
         temperature: 0.5,
@@ -31,11 +32,24 @@ router.route('/chat').post(async (req, res) => {
     });
 })
 
-router.route('/models').get(async (req, res) => {
-    const response = await openai.listEngines();
-    res.json({
-        models: response.data.data
-    })
+
+
+router.route('/models').get(async (req, res) => { 
+    try { const response = await openai.listEngines(); 
+        res.json({ models: response.data.data })
+    } 
+    catch (err) { 
+        res.status(500).json({ message: err.message }) 
+    } 
+})
+
+router.route('/models2').get(async (req, res) => { 
+    try { const response = await openai.listModels(); 
+        res.json({ models: response.data.data })
+    } 
+    catch (err) { 
+        res.status(500).json({ message: err.message }) 
+    } 
 })
 
 
