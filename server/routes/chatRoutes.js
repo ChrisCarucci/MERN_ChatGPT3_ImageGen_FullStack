@@ -33,16 +33,6 @@ router.route('/chat').post(async (req, res) => {
 })
 
 
-
-router.route('/models').get(async (req, res) => { 
-    try { const response = await openai.listEngines(); 
-        res.json({ models: response.data.data })
-    } 
-    catch (err) { 
-        res.status(500).json({ message: err.message }) 
-    } 
-})
-
 router.route('/models2').get(async (req, res) => { 
     try { const response = await openai.listModels(); 
         res.json({ models: response.data.data })
