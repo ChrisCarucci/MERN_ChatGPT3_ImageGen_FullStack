@@ -21,9 +21,9 @@ router.route('/chat').post(async (req, res) => {
     console.log("Backend Model: ", modelChoice)
     
     const response = await openai.createCompletion({
-        model: `${modelChoice}`,
-        prompt: `${message}`,
-        max_tokens: 100,
+        model: modelChoice,
+        prompt: message,
+        max_tokens: 400,
         temperature: 0.5,
     })
 

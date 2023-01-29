@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useState, useEffect } from 'react';
 import { useSelector} from 'react-redux'
+import Loader from './Loader';
 
 
 
@@ -11,9 +12,10 @@ const MainChat = () => {
   
   console.log("ModelChoice Const: ", modelChoice);
 
-  const [ input, setInput ] = useState();
+  const [ input, setInput ] = useState('');
   const [ chatLog, setChatLog ] = useState([]);
-  
+
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,6 +23,8 @@ const MainChat = () => {
     let chatLogNew = [...chatLog, { user: "me", message: `${input}`} ]
     setInput("");
     setChatLog(chatLogNew)
+    
+    
 
     const messages = chatLogNew.map((message) => message.message).join("\n")
 
@@ -33,16 +37,26 @@ const MainChat = () => {
         message: messages,
         modelChoice,
         })
+
       });
+
+
       const data = await response.json();
-      setChatLog([...chatLogNew, { user: "gpt", message: `${data.message}`} ])
+      setChatLog([...chatLogNew, { user: "gpt", message: `${data.message}`} ]) 
+      
+      
   }
 
+
+  
+
   return (
+    
     <div>
       
         {chatLog.map((message, index) => (
-          <ChatMessage key={index} message={message}/>
+          <ChatMessage key={index} message={message} />
+          
         ))}
       
 
@@ -63,8 +77,13 @@ const MainChat = () => {
   )
 }
 
+
+
+
 const ChatMessage = ({ message }) => {
+
   return (
+    
 <div>
     <div className={`chatlog ${message.user === "gpt" && "chatgpt"}`}>
       <div className={`avatar ${message.user === "gpt" && "chatgpt"}`}>
@@ -75,6 +94,6 @@ const ChatMessage = ({ message }) => {
     </div>
 </div>
   )
-}
+  }
 
 export default MainChat

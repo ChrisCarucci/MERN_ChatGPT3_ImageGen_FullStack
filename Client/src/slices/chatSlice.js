@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    modelChoice: "ada",
+    modelChoice: "text-davinci-003",
 }
 
 export const modelChoiceSlice = createSlice({

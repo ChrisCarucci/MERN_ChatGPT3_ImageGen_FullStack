@@ -25,19 +25,21 @@ const SideBar = () => {
   }
 
   function setDefaultModel() {
-    dispatch(setChoice("ada"))
+    dispatch(setChoice("text-davinci-003"))
+    
   }
 
-
+  
   return (
     <div>
     <div 
     className='sidemenubutton'
     >
-      <span>+ </span>New Chat</div>
+      <span>+ </span> New Chat</div>
       <div className='models w-50'>
         <select name="options" id="AI Models" className='bg-black w-44' 
         onChange={(e) => dispatch(setChoice(e.target.value))}
+        value={modelChoice.choice}
         >
         {models.map((model) => {
           return <option 
